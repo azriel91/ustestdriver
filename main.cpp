@@ -31,6 +31,29 @@
 
 US_USE_NAMESPACE
 
+void printHelp() {
+	printf("  %-11s %s", "h", "This help text\n");
+	printf("  %-11s %s", "s", "Print status information\n");
+	printf("  %-11s %s", "q", "Quit\n");
+	fflush(stdout);
+}
+
+void printStatus() {
+	std::vector<Module*> modules = ModuleRegistry::GetModules();
+
+	std::cout << std::left;
+
+	std::cout << "Id | " << std::setw(20) << "Name" << " | " << std::setw(9) << "Status" << std::endl;
+	std::cout << "-----------------------------------\n";
+
+	for (std::vector<Module*>::const_iterator moduleIter = modules.begin(); moduleIter != modules.end(); ++moduleIter) {
+		std::cout << std::right << std::setw(2) << (*moduleIter)->GetModuleId() << std::left << " | ";
+		std::cout << std::setw(20) << (*moduleIter)->GetName() << " | ";
+		std::cout << std::setw(9) << ((*moduleIter)->IsLoaded() ? "LOADED" : "UNLOADED");
+		std::cout << std::endl;
+	}
+}
+
 int main(int /*argc*/, char** /*argv*/) {
 	char cmd[256];
 
@@ -40,25 +63,9 @@ int main(int /*argc*/, char** /*argv*/) {
 		if (strCmd == "q") {
 			break;
 		} else if (strCmd == "h") {
-			printf("  %-11s %s", "h", "This help text\n");
-			printf("  %-11s %s", "s", "Print status information\n");
-			printf("  %-11s %s", "q", "Quit\n");
-			fflush(stdout);
+			printHelp();
 		} else if (strCmd == "s") {
-			std::vector<Module*> modules = ModuleRegistry::GetModules();
-
-			std::cout << std::left;
-
-			std::cout << "Id | " << std::setw(20) << "Name" << " | " << std::setw(9) << "Status" << std::endl;
-			std::cout << "-----------------------------------\n";
-
-			for (std::vector<Module*>::const_iterator moduleIter = modules.begin();
-					 moduleIter != modules.end(); ++moduleIter) {
-				std::cout << std::right << std::setw(2) << (*moduleIter)->GetModuleId() << std::left << " | ";
-				std::cout << std::setw(20) << (*moduleIter)->GetName() << " | ";
-				std::cout << std::setw(9) << ((*moduleIter)->IsLoaded() ? "LOADED" : "UNLOADED");
-				std::cout << std::endl;
-			}
+			printStatus();
 		} else {
 			std::cout << "Unknown command: " << strCmd << " (type 'h' for help)" << std::endl;
 		}
