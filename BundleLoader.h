@@ -38,7 +38,11 @@
 
 #include <map>
 #include <string>
+#include <cstdio>
+#include <stdexcept>
 
+#include <azriel/cppmicroservices/include/usModule.h>
+#include <azriel/cppmicroservices/include/usModuleRegistry.h>
 #include <azriel/cppmicroservices/include/usSharedLibrary.h>
 
 US_USE_NAMESPACE
@@ -62,6 +66,11 @@ public:
 	 * @param libraryPath the path to the bundle library
 	 */
 	void load(const std::string libraryPath);
+	/**
+	 * Unload the bundle for the given bundle id.
+	 *
+	 * @param id the id of the bundle to unload
+	 */
 	void unload(const long int id);
 };
 

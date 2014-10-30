@@ -82,6 +82,22 @@ int main(int /*argc*/, char** /*argv*/) {
 			} catch (const std::exception& e) {
 				std::cout << e.what() << std::endl;
 			}
+		} else if (strCmd.find("u ") != std::string::npos) {
+			std::stringstream ss(strCmd);
+			ss.ignore(2);
+
+			long int id = -1;
+			ss >> id;
+
+			if (id == 1) {
+				std::cout << "Info: Unloading not possible" << std::endl;
+			} else {
+				try {
+					bundleLoader.unload(id);
+				} catch (const std::exception& e) {
+					std::cout << e.what() << std::endl;
+				}
+			}
 		} else {
 			std::cout << "Unknown command: " << strCmd << " (type 'h' for help)" << std::endl;
 		}

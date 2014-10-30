@@ -45,6 +45,25 @@ void BundleLoader::load(const std::string libraryPath) {
 }
 
 void BundleLoader::unload(const long int id) {
+	Module* const module = ModuleRegistry::GetModule(id);
+	if (module) {
+		std::map<std::string, SharedLibrary>::iterator libIter =
+				this->libraryHandles.find(module->GetLocation());
+		if (libIter == this->libraryHandles.end()) {
+			std::cout << "Info: Unloading not possible. The module was loaded by a dependent module." << std::endl;
+		} else {
+			libIter->second.Unload();
+
+			// Check if it has really been unloaded
+			if (module->IsLoaded()) {
+				throw std::logic_error("Info: The module is still referenced by another loaded module. It will be unloaded when all dependent modules are unloaded.");
+			}
+		}
+	} else {
+		char idString[64];
+		std::sprintf(idString, "%ld", id);
+		throw std::invalid_argument(std::string("Error: unknown bundle id: ") + idString);
+	}
 }
 
 } /* namespace driver */
