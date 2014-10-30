@@ -29,7 +29,7 @@
 #include <iostream>
 #include <string>
 
-#include "BundleLoader.h"
+#include <azriel/usbundleloader/BundleLoader.h>
 
 US_USE_NAMESPACE
 
