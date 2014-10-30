@@ -33,8 +33,6 @@
 
 US_USE_NAMESPACE
 
-using namespace us::test::driver;
-
 void printHelp() {
 	printf("  %-11s %s", "h", "This help text\n");
 	printf("  %-11s %s", "s", "Print status information\n");
