@@ -29,7 +29,11 @@
 #include <iostream>
 #include <string>
 
+#include <azriel/usbundleloader/BundleLoader.h>
+
 US_USE_NAMESPACE
+
+using namespace us::test::driver;
 
 void printHelp() {
 	printf("  %-11s %s", "h", "This help text\n");
@@ -55,6 +59,8 @@ void printStatus() {
 }
 
 int main(int /*argc*/, char** /*argv*/) {
+	BundleLoader bundleLoader;
+
 	char cmd[256];
 
 	std::cout << "us > ";
@@ -66,6 +72,32 @@ int main(int /*argc*/, char** /*argv*/) {
 			printHelp();
 		} else if (strCmd == "s") {
 			printStatus();
+		} else if (strCmd.find("l ") != std::string::npos) {
+			std::string libraryPath;
+			libraryPath.assign(strCmd.begin() + 2, strCmd.end());
+
+			try {
+				bundleLoader.load(libraryPath);
+				std::cout << "Loaded: " << libraryPath << std::endl;
+			} catch (const std::exception& e) {
+				std::cout << e.what() << std::endl;
+			}
+		} else if (strCmd.find("u ") != std::string::npos) {
+			std::stringstream ss(strCmd);
+			ss.ignore(2);
+
+			long int id = -1;
+			ss >> id;
+
+			if (id == 1) {
+				std::cout << "Info: Unloading not possible" << std::endl;
+			} else {
+				try {
+					bundleLoader.unload(id);
+				} catch (const std::exception& e) {
+					std::cout << e.what() << std::endl;
+				}
+			}
 		} else {
 			std::cout << "Unknown command: " << strCmd << " (type 'h' for help)" << std::endl;
 		}
