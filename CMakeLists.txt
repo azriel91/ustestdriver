@@ -11,6 +11,8 @@ include(${CMAKE_HOME_DIRECTORY}/biicode.cmake)
 # Initializes block variables
 INIT_BIICODE_BLOCK()
 
+set(BII_main_MAIN_DEPS azriel_cppmicroservices azriel_usbundleloader)
+
 # Actually create targets: EXEcutables and libraries.
 ADD_BIICODE_TARGETS()
 

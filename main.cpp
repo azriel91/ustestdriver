@@ -21,8 +21,8 @@
 
 #include "usConfig.h"
 
-#include <azriel/cppmicroservices/include/usModule.h>
-#include <azriel/cppmicroservices/include/usModuleRegistry.h>
+#include <usModule.h>
+#include <usModuleRegistry.h>
 
 #include <cstdio>
 #include <iomanip>
