@@ -19,7 +19,7 @@
 
 =============================================================================*/
 
-#include "usConfig.h"
+#include "usGlobalConfig.h"
 
 #include <usModule.h>
 #include <usModuleRegistry.h>
