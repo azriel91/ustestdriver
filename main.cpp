@@ -19,17 +19,16 @@
 
 =============================================================================*/
 
-#include "usGlobalConfig.h"
-
-#include <usModule.h>
-#include <usModuleRegistry.h>
-
 #include <cstdio>
 #include <iomanip>
 #include <iostream>
 #include <string>
 
-#include <azriel/usbundleloader/BundleLoader.h>
+#include "usGlobalConfig.h"
+
+#include "azriel/cppmicroservices/core/include/usModule.h"
+#include "azriel/cppmicroservices/core/include/usModuleRegistry.h"
+#include "azriel/usbundleloader/BundleLoader.h"
 
 US_USE_NAMESPACE
 
